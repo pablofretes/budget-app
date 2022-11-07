@@ -1,7 +1,7 @@
 import { Injectable, Inject } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { User } from "./users.entity";
-import { USER_PROVIDERS } from '../common/constants';
+import { USER_PROVIDERS } from '../../common/constants';
 
 @Injectable()
 export class UserService {
