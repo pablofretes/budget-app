@@ -25,7 +25,7 @@ export class User {
 	})
 	password: string;
 
-	@OneToOne(() => Balance)
+	@OneToOne(() => Balance, (balance) => balance.user)
 	@JoinColumn()
 	balance: Balance
 }
