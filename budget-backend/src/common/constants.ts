@@ -11,8 +11,14 @@ export enum TYPE_ORM_TYPES {
 	DOUBLE = "double",
 	INT = "int"
 }
-export const TEXT = "text";
 
+export enum TYPE_ORM_PROPERTIES_LENGTHS {
+	NAME_LENGTH = 50,
+	PASSWORD_LENGTH = 40,
+	EMAIL_LENGTH = 80,
+	CONCEPT_LENGTH = 60,
+	TYPE_LENGTH = 40
+}
 export const NAME_LENGTH = 50;
 
 export const PASSWORD_LENGTH = 40;
