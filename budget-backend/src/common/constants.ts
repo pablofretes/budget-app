@@ -8,7 +8,10 @@ export enum PROVIDERS {
 }
 
 export enum TYPE_ORM_TYPES {
-	TEXT = "text",
+	VARCHAR = "varchar",
 	NUMERIC = "numeric",
-	INT = "int"
+	INT = "int",
+	TIMESTAMP = "timestamp",
 }
+
+export const CURRENT_TIMESTAMP = "CURRENT_TIMESTAMP";

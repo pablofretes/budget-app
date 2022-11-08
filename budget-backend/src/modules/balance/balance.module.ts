@@ -11,4 +11,4 @@ import { balanceProviders } from "./balance.providers";
 	]
 })
 
-export class BalanceModule {};
+export class BalanceModule {}
