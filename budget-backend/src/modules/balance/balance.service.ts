@@ -1,12 +1,12 @@
 import { Injectable, Inject } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { Balance } from "./balance.entity";
-import { BALANCE_PROVIDERS } from '../../common/constants';
+import { PROVIDERS } from '../../common/constants';
 
 @Injectable()
 export class BalanceService {
 	constructor(
-		@Inject(BALANCE_PROVIDERS)
+		@Inject(PROVIDERS.BALANCE_PROVIDERS)
 		private readonly balanceRepository: Repository<Balance>
 	) {}
 

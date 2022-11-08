@@ -1,10 +1,10 @@
 import { DataSource } from "typeorm";
-import { DATABASE_TYPE, ORM_PROVIDER } from "src/common/constants";
+import { DATABASE_TYPE, PROVIDERS } from "../common/constants";
 import config from "../common/configuration";
 
 export const databaseProviders = [
 	{
-		provide: ORM_PROVIDER,
+		provide: PROVIDERS.ORM_PROVIDER,
 		useFactory: async() => {
 			const dataSource = new DataSource({
 				type: DATABASE_TYPE,
