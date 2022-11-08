@@ -8,12 +8,12 @@ export class Balance {
 	id: number;
 
 	@Column({
-		type: TYPE_ORM_TYPES.DOUBLE
+		type: TYPE_ORM_TYPES.NUMERIC
 	})
 	total: number;
 
 	@Column({
-		type: TYPE_ORM_TYPES.DOUBLE
+		type: TYPE_ORM_TYPES.NUMERIC
 	})
 	initialAmount: number;
 
