@@ -4,7 +4,7 @@ import { DataSource } from "typeorm";
 
 export const movementsProviders = [
 	{
-		providers: PROVIDERS.MOVEMENT_PROVIDERS,
+		provide: PROVIDERS.MOVEMENT_PROVIDERS,
 		useFactory: (dataSource: DataSource) => dataSource.getRepository(Movement),
 		inject: [PROVIDERS.ORM_PROVIDER]
 	}
