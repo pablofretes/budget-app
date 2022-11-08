@@ -9,14 +9,6 @@ export enum PROVIDERS {
 
 export enum TYPE_ORM_TYPES {
 	TEXT = "text",
-	DOUBLE = "double",
+	NUMERIC = "numeric",
 	INT = "int"
-}
-
-export enum TYPE_ORM_PROPERTIES_LENGTHS {
-	NAME_LENGTH = 50,
-	PASSWORD_LENGTH = 40,
-	EMAIL_LENGTH = 80,
-	CONCEPT_LENGTH = 60,
-	TYPE_LENGTH = 40
 }
