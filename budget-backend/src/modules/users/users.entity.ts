@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
-import { NAME_LENGTH, EMAIL_LENGTH, PASSWORD_LENGTH, TYPE_ORM_TYPES, TYPE_ORM_PROPERTIES_LENGTHS } from '../../common/constants';
+import { TYPE_ORM_TYPES, TYPE_ORM_PROPERTIES_LENGTHS } from '../../common/constants';
 import { Balance } from '../balance/balance.entity';
 import { Movement } from '../movements/movements.entity';
 
