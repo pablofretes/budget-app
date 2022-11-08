@@ -1,13 +1,12 @@
 import { Config } from "./configuration.interface";
 
-const config: Config = {
+export default () => ({
 	database: {
-		dialect: process.env.DATABASE_DIALECT as string,
-		host: process.env.DATABASE_HOST as string,
+		dialect: process.env.DATABASE_DIALECT,
+		host: process.env.DATABASE_HOST,
 		port: Number(process.env.PORT),
-		username: process.env.DATABASE_USERNAME as string,
+		username: process.env.DATABASE_USERNAME,
 		password: process.env.DATABASE_PASSWORD as string,
-		databaseName: process.env.DATABASE_NAME as string
+		databaseName: process.env.DATABASE_NAME
 	}
-}
-export default config;
+})
