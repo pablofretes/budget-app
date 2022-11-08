@@ -1,4 +1,4 @@
-export const DATABASE_TYPE = "cockroachdb";
+export const DATABASE_TYPE = "postgres";
 
 export enum PROVIDERS {
 	BALANCE_PROVIDERS = "BALANCE_REPOSITORY",

@@ -9,11 +9,11 @@ export const databaseProviders = [
 		useFactory: async (config: ConfigService) => {
 			const dataSource = new DataSource({
 				type: DATABASE_TYPE,
-				host: config.get<string>("host"),
-				port: config.get<number>("port"),
-				username: config.get<string>("username"),
-				password: config.get<string>("password"),
-				database: config.get<string>("databaseName"),
+				host: config.get<string>("database_host"),
+				port: config.get<number>("database_port"),
+				username: config.get<string>("database_user"),
+				password: config.get<string>("database_password"),
+				database: config.get<string>("database_name"),
 				entities: [
 					__dirname + '/../**/*.entity{.ts,.js}',
 				],
