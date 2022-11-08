@@ -1,11 +1,11 @@
 import { DataSource } from "typeorm";
 import { DATABASE_TYPE, PROVIDERS } from "../common/constants";
-import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ConfigService } from "@nestjs/config";
 
 export const databaseProviders = [
 	{
 		provide: PROVIDERS.ORM_PROVIDER,
-		import: [ConfigModule],
+		inject: [ConfigService],
 		useFactory: async (config: ConfigService) => {
 			const dataSource = new DataSource({
 				type: DATABASE_TYPE,
@@ -20,6 +20,5 @@ export const databaseProviders = [
 			})
 		return dataSource.initialize();
 		},
-		inject: [ConfigService]
 	}
 ];
