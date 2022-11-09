@@ -2,9 +2,9 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany
 import { TYPE_ORM_TYPES, CURRENT_TIMESTAMP } from '../../common/constants';
 import { Balance } from '../balance/balance.entity';
 import { Movement } from '../movements/movements.entity';
-@Entity('users')
+@Entity()
 export class User {
-	@PrimaryGeneratedColumn()
+	@PrimaryGeneratedColumn("increment")
 	id: number;
 
 	@Column({ 

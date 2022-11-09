@@ -4,7 +4,7 @@ import { User } from "../users/users.entity";
 
 @Entity()
 export class Balance {
-	@PrimaryGeneratedColumn()
+	@PrimaryGeneratedColumn("increment")
 	id: number;
 
 	@Column({

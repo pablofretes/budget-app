@@ -1,8 +1,9 @@
-import { Injectable, Inject } from "@nestjs/common";
+import { Injectable, Inject, BadRequestException } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { User } from "./users.entity";
 import { PROVIDERS } from '../../common/constants';
 import { CreateUserDto } from "./dto/create-user.dto";
+import { LoginDto } from "./dto/login-user.dto";
 
 @Injectable()
 export class UserService {
@@ -16,7 +17,19 @@ export class UserService {
 	}
 
 	async findById(id: number): Promise<User> {
-		return this.userRepository.findBy({ id: id })[0];
+		return this.userRepository.findOneBy({ id });
+	}
+
+	async findByUsername(username: string): Promise<User> {
+		return this.userRepository.findOneBy({ username });
+	}
+
+	async findByEmail(email: string): Promise<User> {
+		return this.userRepository.findOneBy({ email });
+	}
+
+	async login(user: LoginDto): Promise<User> {
+		return 
 	}
 
 	async createUser(user: CreateUserDto): Promise<User> {

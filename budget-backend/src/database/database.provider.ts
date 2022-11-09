@@ -15,8 +15,9 @@ export const databaseProviders = [
 				password: config.get<string>("database_password"),
 				database: config.get<string>("database_name"),
 				entities: [
-					__dirname + '/../**/*.entity{.ts,.js}',
+					__dirname + '/../**/**/*.entity{.ts,.js}'
 				],
+				synchronize: true
 			})
 		return dataSource.initialize();
 		},
