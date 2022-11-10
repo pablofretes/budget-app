@@ -30,7 +30,7 @@ export class User {
 	})
 	createdAt: Date;
 
-	@OneToOne(() => Balance, (balance) => balance.user)
+	@OneToOne(() => Balance)
 	@JoinColumn()
 	balance: Balance
 
