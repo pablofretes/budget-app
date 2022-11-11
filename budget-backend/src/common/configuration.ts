@@ -7,5 +7,4 @@ export default () => ({
 	database_password: process.env.DATABASE_PASSWORD,
 	database_name: process.env.DATABASE_NAME,
 	jwt_secret: process.env.SECRET_KEY_JWT,
-	test_database_name: process.env.TEST_DATABASE_NAME,
 })

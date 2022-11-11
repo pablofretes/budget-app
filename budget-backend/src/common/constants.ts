@@ -11,6 +11,17 @@ export enum PROVIDERS {
 	MOVEMENTS_SERVICE = "MOVEMENTS_SERVICE",
 }
 
+export enum CONFIG_CONSTANTS {
+	DATABASE_HOST = "database_host",
+	DATABASE_PORT = "database_port",
+	DATABASE_USERNAME = "database_username",
+	DATABASE_USER = "database_user",
+	DATABASE_PASSWORD = "database_password",
+	DATABASE_NAME = "database_name",
+	JWT_SECRET = "jwt_secret",
+	NODE_ENV = "NODE_ENV",
+}
+
 export enum ERROR_MESSAGES {
 	INVALID_EMAIL = "Invalid email",
 	INVALID_CREDENTIALS = "Invalid Credentials",

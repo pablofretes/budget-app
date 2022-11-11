@@ -1,7 +1,7 @@
 import { Injectable, Inject, BadRequestException } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { User } from "./users.entity";
-import { PROVIDERS, HASH_SALT, ERROR_MESSAGES, RELATIONS } from '../../common/constants';
+import { PROVIDERS, HASH_SALT, ERROR_MESSAGES, RELATIONS, CONFIG_CONSTANTS } from '../../common/constants';
 import { CreateUserDto } from "./dto/create-user.dto";
 import { ConfigService } from "@nestjs/config";
 import { BalanceService } from "../balance/balance.service";
@@ -55,7 +55,7 @@ UserService {
 	}
 
 	async login(user: User): Promise<string> {
-		const secret = this.config.get("jwt_secret");
+		const secret = this.config.get(CONFIG_CONSTANTS.JWT_SECRET);
 		const jwtPayload = {
 			userId: user.id,
 			createdAt: user.createdAt.getTime(),
