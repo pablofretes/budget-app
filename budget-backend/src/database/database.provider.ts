@@ -1,24 +1,31 @@
 import { DataSource } from "typeorm";
-import { DATABASE_TYPE, PROVIDERS } from "../common/constants";
+import { CONFIG_CONSTANTS, DATABASE_TYPE, PROVIDERS } from "../common/constants";
 import { ConfigService } from "@nestjs/config";
+import { setupTestDb } from "../utils/test-setup";
 
 export const databaseProviders = [
 	{
 		provide: PROVIDERS.ORM_PROVIDER,
 		inject: [ConfigService],
 		useFactory: async (config: ConfigService) => {
-			const dataSource = new DataSource({
-				type: DATABASE_TYPE,
-				host: config.get<string>("database_host"),
-				port: config.get<number>("database_port"),
-				username: config.get<string>("database_user"),
-				password: config.get<string>("database_password"),
-				database: config.get<string>("database_name"),
-				entities: [
-					__dirname + '/../**/*.entity{.ts,.js}',
-				],
-			})
-		return dataSource.initialize();
+			const NODE_ENV_VAR = config.get(CONFIG_CONSTANTS.NODE_ENV);
+			if (NODE_ENV_VAR !== "test") {
+				const dataSource = new DataSource({
+					type: DATABASE_TYPE,
+					host: config.get(CONFIG_CONSTANTS.DATABASE_HOST),
+					port: config.get(CONFIG_CONSTANTS.DATABASE_PORT),
+					username: config.get(CONFIG_CONSTANTS.DATABASE_USER),
+					password: config.get(CONFIG_CONSTANTS.DATABASE_PASSWORD),
+					database: config.get(CONFIG_CONSTANTS.DATABASE_NAME),
+					entities: [
+						__dirname + '/../**/**/*.entity{.ts,.js}'
+					],
+					synchronize: true
+				})
+				return dataSource.initialize();
+			} else {
+				await setupTestDb();
+			}
 		},
 	}
 ];

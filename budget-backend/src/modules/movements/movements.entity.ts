@@ -1,14 +1,14 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { TYPE_ORM_TYPES } from "src/common/constants";
+import { CURRENT_TIMESTAMP, TYPE_ORM_TYPES } from "../../common/constants";
 import { User } from "../users/users.entity";
 
 @Entity()
 export class Movement {
-	@PrimaryGeneratedColumn()
+	@PrimaryGeneratedColumn("increment")
 	id: number;
 
 	@Column({
-		type: TYPE_ORM_TYPES.TEXT,
+		type: TYPE_ORM_TYPES.VARCHAR,
 	})
 	concept: string;
 
@@ -18,9 +18,15 @@ export class Movement {
 	amount: number;
 
 	@Column({
-		type: TYPE_ORM_TYPES.TEXT,
+		type: TYPE_ORM_TYPES.VARCHAR,
 	})
 	type: string;
+
+	@Column({
+		type: TYPE_ORM_TYPES.TIMESTAMP,
+		default: () => CURRENT_TIMESTAMP
+	})
+	createdAt: Date;
 
 	@ManyToOne(() => User, (user) => user.movements)
 	user: User
