@@ -19,11 +19,11 @@ UserService {
 	) {}
 
 	async findAll(): Promise<User[]> {
-		return this.userRepository.find({ relations: [RELATIONS.BALANCE, RELATIONS.MOVEMENTS] });
+		return this.userRepository.find({ relations: [RELATIONS.BALANCE] });
 	}
 
 	async findById(id: number): Promise<User> {
-		const user = await this.userRepository.findOne({ where: { id: id }, relations: [RELATIONS.BALANCE, RELATIONS.MOVEMENTS] });
+		const user = await this.userRepository.findOne({ where: { id: id }, relations: [RELATIONS.BALANCE] });
 		if (!user) {
 			throw new BadRequestException(ERROR_MESSAGES.INVALID_ID);
 		}
@@ -31,7 +31,7 @@ UserService {
 	}
 
 	async findByUsername(username: string): Promise<User> {
-		const user = await this.userRepository.findOne({ where: { username: username }, relations: [RELATIONS.BALANCE, RELATIONS.MOVEMENTS] });
+		const user = await this.userRepository.findOne({ where: { username: username }, relations: [RELATIONS.BALANCE] });
 		if (!user) {
 			throw new BadRequestException(ERROR_MESSAGES.INVALID_USERNAME);
 		}
@@ -44,7 +44,7 @@ UserService {
 	}
 
 	async findByEmail(email: string): Promise<User> {
-		const user = await this.userRepository.findOne({ where: { email: email }, relations: [RELATIONS.BALANCE, RELATIONS.MOVEMENTS] });
+		const user = await this.userRepository.findOne({ where: { email: email }, relations: [RELATIONS.BALANCE] });
 		if (!user) {
 			throw new BadRequestException(ERROR_MESSAGES.INVALID_EMAIL);
 		}

@@ -1,7 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 import { TYPE_ORM_TYPES, CURRENT_TIMESTAMP } from '../../common/constants';
 import { Balance } from '../balance/balance.entity';
-import { Movement } from '../movements/movements.entity';
 @Entity()
 export class User {
 	@PrimaryGeneratedColumn("increment")
@@ -33,7 +32,4 @@ export class User {
 	@OneToOne(() => Balance)
 	@JoinColumn()
 	balance: Balance
-
-	@OneToMany(() => Movement, (movement) => movement.user)
-	movements: Movement[]
 }

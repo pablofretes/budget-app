@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { CURRENT_TIMESTAMP, TYPE_ORM_TYPES } from "../../common/constants";
+import { Balance } from "../balance/balance.entity";
 import { User } from "../users/users.entity";
 
 @Entity()
@@ -28,6 +29,6 @@ export class Movement {
 	})
 	createdAt: Date;
 
-	@ManyToOne(() => User, (user) => user.movements)
-	user: User
+	@ManyToOne(() => Balance, (balance) => balance.movements)
+	balance: Balance
 }
