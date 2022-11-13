@@ -19,7 +19,7 @@ UserService {
 	) {}
 
 	async findAll(): Promise<User[]> {
-		return this.userRepository.find();
+		return this.userRepository.find({ relations: [RELATIONS.BALANCE, RELATIONS.MOVEMENTS] });
 	}
 
 	async findById(id: number): Promise<User> {
@@ -70,6 +70,8 @@ UserService {
 		const newBalance = await this.balanceService.createBalance(balanceData);
 		const userToSave = { ...user, balance: newBalance, movements: [] };
 		const newUser = this.userRepository.create(userToSave);
-		return this.userRepository.save(newUser);
+		const savedUser = await this.userRepository.save(newUser);
+		delete savedUser.password;
+		return savedUser;
 	}
 }

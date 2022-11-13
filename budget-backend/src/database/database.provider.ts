@@ -1,15 +1,14 @@
 import { DataSource } from "typeorm";
 import { CONFIG_CONSTANTS, DATABASE_TYPE, PROVIDERS } from "../common/constants";
 import { ConfigService } from "@nestjs/config";
-import { setupDataSource } from "../test-utils/test-database.providers";
+import { setupTestDb } from "../utils/test-setup";
 
 export const databaseProviders = [
 	{
 		provide: PROVIDERS.ORM_PROVIDER,
 		inject: [ConfigService],
 		useFactory: async (config: ConfigService) => {
-			const NODE_ENV_VAR = config.get(CONFIG_CONSTANTS.NODE_ENV); 
-			console.log("NODE_ENV_VAR", NODE_ENV_VAR)
+			const NODE_ENV_VAR = config.get(CONFIG_CONSTANTS.NODE_ENV);
 			if (NODE_ENV_VAR !== "test") {
 				const dataSource = new DataSource({
 					type: DATABASE_TYPE,
@@ -25,9 +24,7 @@ export const databaseProviders = [
 				})
 				return dataSource.initialize();
 			} else {
-				const dataSource = await setupDataSource();
-				await dataSource.initialize();
-				return dataSource.synchronize();
+				await setupTestDb();
 			}
 		},
 	}

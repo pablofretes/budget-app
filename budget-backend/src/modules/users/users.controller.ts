@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Inject, Param, ParseIntPipe, Post } from "@nestjs/common";
-import { PROVIDERS } from "../../common/constants";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UserService } from "./users.service";
 import { UserValidations } from "./users.validations";

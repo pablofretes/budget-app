@@ -40,7 +40,7 @@ export enum TYPE_ORM_TYPES {
 	VARCHAR = "varchar",
 	NUMERIC = "numeric",
 	INT = "int",
-	TIMESTAMP = "timestamp",
+	TIMESTAMP = "timestamptz",
 }
 
 export const CURRENT_TIMESTAMP = "CURRENT_TIMESTAMP";
