@@ -1,6 +1,7 @@
 import { CURRENT_TIMESTAMP, TYPE_ORM_TYPES } from "../../common/constants";
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany } from "typeorm";
 import { User } from "../users/users.entity";
+import { Movement } from "../movements/movements.entity";
 
 @Entity()
 export class Balance {
@@ -25,4 +26,7 @@ export class Balance {
 
 	@OneToOne(() => User, (user) => user.balance)
 	user: User
+
+	@OneToMany(() => Movement, (movement) => movement.balance)
+	movements: Movement[]
 }

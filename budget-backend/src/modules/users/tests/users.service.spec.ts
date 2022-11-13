@@ -1,10 +1,10 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { UserService } from "../users.service";
 import { User } from "../users.entity";
-import { BalanceService } from "../../../modules/balance/balance.service";
+import { BalanceService } from "../../balance/balance.service";
 import { PROVIDERS } from "../../../common/constants";
 import { ConfigService } from "@nestjs/config";
-import { BalanceDto } from "../../../modules/balance/dto/balance-create.dto";
+import { BalanceDto } from "../../balance/dto/balance-create.dto";
 import { CreateUserDto } from "../dto/create-user.dto";
 import { testUserOne, testUserTwo } from "./test.mock.users";
 
@@ -26,7 +26,6 @@ describe("UserService", () => {
 				initialAmount: 0,
 				createdAt: new Date()
 			},
-			movements: [] 
 		})),
 		save: jest.fn((user: User) => {
 			return {
@@ -36,7 +35,6 @@ describe("UserService", () => {
 				password: "aHashedPass",
 				createdAt: user.createdAt,
 				balance: user.balance,
-				movements: user.movements
 			}
 		}),
 		find: jest.fn(() => {
@@ -116,7 +114,6 @@ describe("UserService", () => {
 				initialAmount: 0,
 				createdAt: expect.any(Date)
 			},
-			movements: []
 		});
 	})
 })
