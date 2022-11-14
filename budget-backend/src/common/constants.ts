@@ -29,11 +29,20 @@ export enum ERROR_MESSAGES {
 	INVALID_ID = "Invalid ID",
 	USERNAME_TAKEN = "Username is already taken",
 	EMAIL_TAKEN = "Email is already taken",
+	BALANCE_NOT_FOUND = "Balance Not Found",
+	MOVEMENT_NOT_FOUND = "Movement Not Found",
+	NO_DELETE_ERROR = "The record could not be deleted",
+	MOVEMENT_NO_TYPE = "Tried to update a movement with no movement type",
+}
+
+export enum RESPONSE_MESSAGES {
+	SUCCESSFULLY_DELETED = "The record was successfully deleted",
 }
 
 export enum RELATIONS {
 	BALANCE = "balance",
-	MOVEMENTS = "movements"
+	MOVEMENTS = "movements",
+	NESTED_MOVEMENTS = "balance.movements",
 }
 
 export enum TYPE_ORM_TYPES {
@@ -41,6 +50,20 @@ export enum TYPE_ORM_TYPES {
 	NUMERIC = "numeric",
 	INT = "int",
 	TIMESTAMP = "timestamptz",
+}
+
+export enum MOVEMENT_TYPE {
+	POSITIVE = "positive",
+	NEGATIVE = "negative",
+}
+
+export enum MOVEMENT_CONCEPT {
+	GROCERIES = "groceries",
+	TAX = "tax",
+	ENTERTAINMENT = "entertainment",
+	SALARY = "salary",
+	TRANSPORTATION = "transportation",
+	HEALTH = "health",
 }
 
 export const CURRENT_TIMESTAMP = "CURRENT_TIMESTAMP";

@@ -12,6 +12,7 @@ describe("BalanceService", () => {
 				initialAmount: dto.initialAmount,
 				total: dto.total,
 				movements: [],
+				createdAt: new Date(),
 			}
 		}),
 		save: jest.fn((dto: BalanceDto) => {
@@ -20,6 +21,7 @@ describe("BalanceService", () => {
 				initialAmount: dto.initialAmount,
 				total: dto.total,
 				movements: [],
+				createdAt: new Date(),
 			}
 		}),
 		findOne: jest.fn((obj: { where: { id: number } }) => {
@@ -28,6 +30,7 @@ describe("BalanceService", () => {
 				initialAmount: 888,
 				total: 999,
 				movements: [],
+				createdAt: new Date(),
 			}
 		})
 	};
@@ -58,6 +61,7 @@ describe("BalanceService", () => {
 			initialAmount: balanceDto.initialAmount,
 			total: balanceDto.total,
 			movements: [],
+			createdAt: expect.any(Date),
 		});
 	});
 
@@ -69,6 +73,7 @@ describe("BalanceService", () => {
 			initialAmount: expect.any(Number),
 			total: expect.any(Number),
 			movements: [],
+			createdAt: expect.any(Date),
 		});
 	});
 })

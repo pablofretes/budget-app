@@ -2,7 +2,8 @@ import { Module } from "@nestjs/common";
 import { DatabaseModule } from "../../database/database.module";
 import { BalanceService } from "./balance.service";
 import { balanceProviders } from "./balance.providers";
-import { PROVIDERS } from "../../common/constants";
+import { BalanceController } from "./balance.controller";
+import { Sanitizer } from "../../utils/sanitizer";
 
 @Module({
 	imports: [
@@ -10,8 +11,10 @@ import { PROVIDERS } from "../../common/constants";
 	],
 	providers: [
 		...balanceProviders,
-		BalanceService
+		Sanitizer,
+		BalanceService,
 	],
+	controllers: [BalanceController],
 	exports: [BalanceService]
 })
 
