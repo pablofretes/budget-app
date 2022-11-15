@@ -1,5 +1,5 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { PROVIDERS, RELATIONS } from "../../../common/constants";
+import { PROVIDERS } from "../../../common/constants";
 import { BalanceService } from "../balance.service";
 import { BalanceDto } from "../dto/balance-create.dto";
 

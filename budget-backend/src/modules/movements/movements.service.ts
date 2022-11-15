@@ -4,7 +4,6 @@ import { Movement } from "./movements.entity";
 import { ERROR_MESSAGES, PROVIDERS, RESPONSE_MESSAGES } from "../../common/constants";
 import { CreateMovementDto } from "./dto/create-movement.dto";
 import { Balance } from "../balance/balance.entity";
-import { InjectRepository } from "@nestjs/typeorm"
 import { UpdateMovementDto } from "./dto/update-movement.dto";
 
 @Injectable()
@@ -15,10 +14,6 @@ export class MovementService {
 		private readonly balanceRepository: Repository<Balance>
 	) {}
 
-	async findAll(): Promise<Movement[]> {
-		return this.movementsRepository.find();
-	}
-
 	async findById(id: number): Promise<Movement> {
 		const movement = await this.movementsRepository.findOneBy({ id });
 		if (!movement) throw new NotFoundException(ERROR_MESSAGES.MOVEMENT_NOT_FOUND);
@@ -27,18 +22,18 @@ export class MovementService {
 
 	async createMovement(movementDto: CreateMovementDto): Promise<Movement> {
 		const balance: Balance = await this.balanceRepository.findOneBy({ id: movementDto.balanceId });
-		balance.total = balance.total + movementDto.amount;
-		await this.balanceRepository.save(balance);
 		if (!balance) throw new NotFoundException(ERROR_MESSAGES.BALANCE_NOT_FOUND)
+		balance.total = balance.total + movementDto.amount;
 		const movement = new Movement();
 		movement.amount = movementDto.amount;
 		movement.concept = movementDto.concept;
 		movement.type = movementDto.type;
-		movement.balance = balance;
+		movement.balanceId = movementDto.balanceId;
+		await this.balanceRepository.save(balance);
 		return this.movementsRepository.save(movement);
 	}
 
-	async updateMovement(id:number, movementDto: UpdateMovementDto): Promise<Movement> {
+	async updateMovement(id: number, movementDto: UpdateMovementDto): Promise<Movement> {
 		const movement = await this.movementsRepository.findOneBy({ id });
 		if (!movement) throw new NotFoundException(ERROR_MESSAGES.MOVEMENT_NOT_FOUND);
 		movement.amount = movementDto.amount ? movementDto.amount : movement.amount;

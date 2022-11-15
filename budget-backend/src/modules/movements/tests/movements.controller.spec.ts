@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MOVEMENT_CONCEPT, MOVEMENT_TYPE } from '../../../common/constants';
+import { MOVEMENT_CONCEPT, MOVEMENT_TYPE, RESPONSE_MESSAGES } from '../../../common/constants';
 import { Sanitizer } from '../../../utils/sanitizer';
 import { CreateMovementDto } from '../dto/create-movement.dto';
 import { UpdateMovementDto } from '../dto/update-movement.dto';
@@ -16,8 +16,29 @@ describe("MovementsController", () => {
 				amount: dto.amount,
 				type: dto.type,
 				concept: dto.concept,
-				id: 1
+				id: 1,
 			}
+		}),
+		updateMovement: jest.fn((id: number, dto: UpdateMovementDto) => {
+			return {
+				id: id,
+				amount: dto.amount,
+				concept: dto.concept,
+				type: dto.type,
+				balanceId: 1,
+			}
+		}),
+		findById: jest.fn((id: number) => {
+			return {
+				id: id,
+				amount: 100,
+				type: MOVEMENT_TYPE.NEGATIVE,
+				concept: MOVEMENT_CONCEPT.ENTERTAINMENT,
+				balanceId: 1,
+			}
+		}),
+		deleteOne: jest.fn((id: number) => {
+			return { message: RESPONSE_MESSAGES.SUCCESSFULLY_DELETED };
 		})
 	};
 
@@ -80,4 +101,24 @@ describe("MovementsController", () => {
 			id: id,
 		})
 	});
-});
+	
+	it("should delete a movement", async () => {
+		const id = 1;
+		const deleteResponse = await movementsController.deleteMovement(id);
+		expect(deleteResponse).toEqual({
+			message: RESPONSE_MESSAGES.SUCCESSFULLY_DELETED
+		})
+	});
+
+	it("should return a movement", async () => {
+		const id = 1;
+		const movement = await movementsController.getMovement(id);
+		expect(movement).toEqual({
+			balanceId: expect.any(Number),
+			amount: expect.any(Number),
+			type: expect.any(String),
+			concept: expect.any(String),
+			id: id,
+		})
+	})
+})
