@@ -7,11 +7,11 @@ import configuration from './common/configuration';
 
 @Module({
   imports: [
-		ConfigModule.forRoot({ load: [configuration], isGlobal: true }),
-		UserModule,
-		BalanceModule,
-		MovementModule,
-	],
+    ConfigModule.forRoot({ load: [configuration], isGlobal: true }),
+    UserModule,
+    BalanceModule,
+    MovementModule,
+  ],
   controllers: [],
   providers: [],
 })
