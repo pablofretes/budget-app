@@ -29,7 +29,9 @@ export class User {
 	})
 	createdAt: Date;
 
-	@OneToOne(() => Balance)
+	@OneToOne(() => Balance, {
+		cascade: true
+	})
 	@JoinColumn()
 	balance: Balance
 }

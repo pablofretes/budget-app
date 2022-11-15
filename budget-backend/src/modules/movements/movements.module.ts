@@ -1,6 +1,8 @@
 import { Module } from "@nestjs/common";
-import { PROVIDERS } from "../../common/constants";
+import { Sanitizer } from "../../utils/sanitizer";
 import { DatabaseModule } from "../../database/database.module";
+import { balanceProviders } from "../balance/balance.providers";
+import { MovementsController } from "./movements.controller";
 import { movementsProviders } from "./movements.providers";
 import { MovementService } from "./movements.service";
 
@@ -10,11 +12,13 @@ import { MovementService } from "./movements.service";
 	],
 	providers: [
 		...movementsProviders,
-		{
-			provide: PROVIDERS.MOVEMENTS_SERVICE,
-			useClass: MovementService,
-		}
+		...balanceProviders,
+		Sanitizer,
+		MovementService,
 	],
+	controllers: [
+		MovementsController,
+	]
 })
 
-export class MovementModule {};
+export class MovementModule {}

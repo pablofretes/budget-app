@@ -1,8 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { CURRENT_TIMESTAMP, TYPE_ORM_TYPES } from "../../common/constants";
+import { ColumnNumericTransformer } from "../../utils/transformer";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import { CURRENT_TIMESTAMP, MOVEMENT_CONCEPT, MOVEMENT_TYPE, TYPE_ORM_TYPES } from "../../common/constants";
 import { Balance } from "../balance/balance.entity";
-import { User } from "../users/users.entity";
-
 @Entity()
 export class Movement {
 	@PrimaryGeneratedColumn("increment")
@@ -11,17 +10,18 @@ export class Movement {
 	@Column({
 		type: TYPE_ORM_TYPES.VARCHAR,
 	})
-	concept: string;
-
-	@Column({
-		type: TYPE_ORM_TYPES.NUMERIC,
-	})
-	amount: number;
+	concept: MOVEMENT_CONCEPT;
 
 	@Column({
 		type: TYPE_ORM_TYPES.VARCHAR,
 	})
-	type: string;
+	type: MOVEMENT_TYPE;
+
+	@Column({
+		type: TYPE_ORM_TYPES.NUMERIC,
+		transformer: new ColumnNumericTransformer()
+	})
+	amount: number;
 
 	@Column({
 		type: TYPE_ORM_TYPES.TIMESTAMP,
@@ -29,6 +29,10 @@ export class Movement {
 	})
 	createdAt: Date;
 
+	@Column({ nullable: true })
+	balanceId: number;
+
 	@ManyToOne(() => Balance, (balance) => balance.movements)
+	@JoinColumn({ name: "balanceId" })
 	balance: Balance
 }

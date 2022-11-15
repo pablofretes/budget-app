@@ -26,9 +26,8 @@ export class BalanceService {
 
 	async updateBalance(id: number, amount: number): Promise<Balance> {
 		const balance = await this.findById(id);
-		const parsedAmount = Number(amount.toFixed(2));
-		balance.total = balance.total + parsedAmount;
-		balance.initialAmount = balance.initialAmount + parsedAmount;
+		balance.total = balance.total + amount;
+		balance.initialAmount = balance.initialAmount + amount;
 		return this.balanceRepository.save(balance);
 	}
 }

@@ -17,11 +17,11 @@ export class CreateUserDto {
 	@MinLength(5)
 	password: string
 
-	@IsNumber()
 	@IsNotEmpty()
+	@IsNumber()
 	initialAmount: number;
 	
-	@IsNumber()
 	@IsNotEmpty()
+	@IsNumber()
 	total: number;
 }

@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { Sanitizer } from '../../../utils/sanitizer';
 import { BalanceController } from '../balance.controller';
 import { BalanceService } from '../balance.service';
 
@@ -23,15 +24,24 @@ describe("BalanceController", () => {
 			}
 		})
 	};
+
+	const mockSanitizer = {
+		sanitizeNumber: jest.fn((number: number) => {
+			return Number(number.toFixed(2));
+		})
+	}
 	
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
 			controllers: [BalanceController],
 			providers: [
-				BalanceService
+				BalanceService,
+				Sanitizer,
 			]
 		}).overrideProvider(BalanceService)
 			.useValue(mockBalanceService)
+			.overrideProvider(Sanitizer)
+			.useValue(mockSanitizer)
 			.compile();
 
 		balanceController = module.get<BalanceController>(BalanceController);
