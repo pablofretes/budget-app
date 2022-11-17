@@ -24,8 +24,8 @@ export const setupTestDb = async () => {
   const dataSource: DataSource = db.adapters.createTypeormDataSource({
     type: 'postgres',
     entities: [User, Movement, Balance],
+    synchronize: true,
   });
 
-  await dataSource.initialize();
-  await dataSource.synchronize();
+  return dataSource;
 };

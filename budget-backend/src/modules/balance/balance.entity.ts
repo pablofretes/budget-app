@@ -5,11 +5,11 @@ import {
   Column,
   OneToOne,
   OneToMany,
+  CreateDateColumn,
 } from 'typeorm';
 import { User } from '../users/users.entity';
 import { Movement } from '../movements/movements.entity';
 import { ColumnNumericTransformer } from '../../utils/transformer';
-
 @Entity()
 export class Balance {
   @PrimaryGeneratedColumn('increment')
@@ -27,7 +27,7 @@ export class Balance {
   })
   initialAmount: number;
 
-  @Column({
+  @CreateDateColumn({
     type: TYPE_ORM_TYPES.TIMESTAMP,
     default: () => CURRENT_TIMESTAMP,
   })

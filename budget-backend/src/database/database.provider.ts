@@ -26,7 +26,8 @@ export const databaseProviders = [
         });
         return dataSource.initialize();
       } else {
-        await setupTestDb();
+        const dataSource = await setupTestDb();
+        return await dataSource.initialize();
       }
     },
   },

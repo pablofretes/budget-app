@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { TYPE_ORM_TYPES, CURRENT_TIMESTAMP } from '../../common/constants';
 import { Balance } from '../balance/balance.entity';
@@ -29,7 +30,7 @@ export class User {
   })
   password: string;
 
-  @Column({
+  @CreateDateColumn({
     type: TYPE_ORM_TYPES.TIMESTAMP,
     default: () => CURRENT_TIMESTAMP,
   })

@@ -5,6 +5,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import {
   CURRENT_TIMESTAMP,
@@ -34,7 +35,7 @@ export class Movement {
   })
   amount: number;
 
-  @Column({
+  @CreateDateColumn({
     type: TYPE_ORM_TYPES.TIMESTAMP,
     default: () => CURRENT_TIMESTAMP,
   })
