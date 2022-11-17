@@ -11,7 +11,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { ERROR_MESSAGES } from '../../common/constants';
-import { Sanitizer } from '../../utils/sanitizer';
+import { Sanitizer } from '../../utils/sanitizer/sanitizer';
 import { CreateMovementDto } from './dto/create-movement.dto';
 import { UpdateMovementDto } from './dto/update-movement.dto';
 import { MovementService } from './movements.service';
@@ -25,6 +25,7 @@ export class MovementsController {
 
   @Post()
   async createMovement(@Body() movement: CreateMovementDto) {
+		console.log("movement juju", movement);
     const sanitizedAmount = this.sanitizer.sanitizeNumber(movement.amount);
     const sanitizedMovement = { ...movement, amount: sanitizedAmount };
     return this.movementService.createMovement(sanitizedMovement);

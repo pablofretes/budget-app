@@ -7,7 +7,7 @@ import {
   Inject,
   ParseIntPipe,
 } from '@nestjs/common';
-import { Sanitizer } from '../../utils/sanitizer';
+import { Sanitizer } from '../../utils/sanitizer/sanitizer';
 import { BalanceService } from './balance.service';
 
 @Controller('balance')

@@ -1,4 +1,4 @@
-import { ColumnNumericTransformer } from '../../utils/transformer';
+import { ColumnNumericTransformer } from '../../utils/transformer/transformer';
 import {
   Entity,
   PrimaryGeneratedColumn,

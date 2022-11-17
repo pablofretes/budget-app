@@ -5,7 +5,7 @@ import {
   PROVIDERS,
 } from '../common/constants';
 import { ConfigService } from '@nestjs/config';
-import { setupTestDb } from '../utils/test-setup';
+import { setupTestDb } from '../utils/test/test-setup';
 
 export const databaseProviders = [
   {

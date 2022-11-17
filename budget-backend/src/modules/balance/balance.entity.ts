@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { User } from '../users/users.entity';
 import { Movement } from '../movements/movements.entity';
-import { ColumnNumericTransformer } from '../../utils/transformer';
+import { ColumnNumericTransformer } from '../../utils/transformer/transformer';
 @Entity()
 export class Balance {
   @PrimaryGeneratedColumn('increment')
