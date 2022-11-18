@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Sanitizer } from '../../../utils/sanitizer';
+import { Sanitizer } from '../../../utils/sanitizer/sanitizer';
 import { BalanceController } from '../balance.controller';
 import { BalanceService } from '../balance.service';
 

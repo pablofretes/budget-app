@@ -5,7 +5,7 @@ import {
   PROVIDERS,
 } from '../common/constants';
 import { ConfigService } from '@nestjs/config';
-import { setupTestDb } from '../utils/test-setup';
+import { setupTestDb } from '../utils/test/test-setup';
 
 export const databaseProviders = [
   {
@@ -26,7 +26,8 @@ export const databaseProviders = [
         });
         return dataSource.initialize();
       } else {
-        await setupTestDb();
+        const dataSource = await setupTestDb();
+        return await dataSource.initialize();
       }
     },
   },

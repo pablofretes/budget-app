@@ -4,7 +4,7 @@ import {
   MOVEMENT_TYPE,
   RESPONSE_MESSAGES,
 } from '../../../common/constants';
-import { Sanitizer } from '../../../utils/sanitizer';
+import { Sanitizer } from '../../../utils/sanitizer/sanitizer';
 import { CreateMovementDto } from '../dto/create-movement.dto';
 import { UpdateMovementDto } from '../dto/update-movement.dto';
 import { MovementsController } from '../movements.controller';

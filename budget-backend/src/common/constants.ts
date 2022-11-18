@@ -31,6 +31,7 @@ export enum ERROR_MESSAGES {
   EMAIL_TAKEN = 'Email is already taken',
   BALANCE_NOT_FOUND = 'Balance Not Found',
   MOVEMENT_NOT_FOUND = 'Movement Not Found',
+  USER_NOT_FOUND = 'User Not Found',
   NO_DELETE_ERROR = 'The record could not be deleted',
   MOVEMENT_NO_TYPE = 'Tried to update a movement with no movement type',
 }

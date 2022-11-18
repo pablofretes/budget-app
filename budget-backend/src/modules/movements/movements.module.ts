@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { Sanitizer } from '../../utils/sanitizer';
+import { Sanitizer } from '../../utils/sanitizer/sanitizer';
 import { DatabaseModule } from '../../database/database.module';
 import { balanceProviders } from '../balance/balance.providers';
 import { MovementsController } from './movements.controller';

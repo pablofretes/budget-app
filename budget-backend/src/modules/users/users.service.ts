@@ -1,4 +1,10 @@
-import { Injectable, Inject, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  Inject,
+  BadRequestException,
+  NotFoundException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './users.entity';
 import {
@@ -7,6 +13,7 @@ import {
   ERROR_MESSAGES,
   RELATIONS,
   CONFIG_CONSTANTS,
+  RESPONSE_MESSAGES,
 } from '../../common/constants';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ConfigService } from '@nestjs/config';
@@ -20,11 +27,15 @@ export class UserService {
     @Inject(ConfigService)
     private readonly userRepository: Repository<User>,
     private readonly balanceService: BalanceService,
-    private readonly config: ConfigService,
+    private config: ConfigService,
   ) {}
 
   async findAll(): Promise<User[]> {
-    return this.userRepository.find({ relations: [RELATIONS.BALANCE] });
+    try {
+      return this.userRepository.find({ relations: [RELATIONS.BALANCE] });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 
   async findById(id: number): Promise<User> {
@@ -33,7 +44,7 @@ export class UserService {
       relations: [RELATIONS.BALANCE, RELATIONS.NESTED_MOVEMENTS],
     });
     if (!user) {
-      throw new BadRequestException(ERROR_MESSAGES.INVALID_ID);
+      throw new NotFoundException(ERROR_MESSAGES.INVALID_ID);
     }
     return user;
   }
@@ -56,25 +67,23 @@ export class UserService {
   async findByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOne({
       where: { email: email },
-      relations: [RELATIONS.BALANCE, RELATIONS.NESTED_MOVEMENTS],
+      relations: [RELATIONS.BALANCE],
     });
-    if (!user) {
-      throw new BadRequestException(ERROR_MESSAGES.INVALID_EMAIL);
-    }
+
     return user;
   }
   async findByEmailValidation(email: string): Promise<User> {
     return this.userRepository.findOneBy({ email });
   }
 
-  async login(user: User): Promise<string> {
-    const secret = this.config.get(CONFIG_CONSTANTS.JWT_SECRET);
+  async login(user: User): Promise<{ token: string }> {
+    const secret = this.config.get<string>(CONFIG_CONSTANTS.JWT_SECRET);
     const jwtPayload = {
       userId: user.id,
       createdAt: user.createdAt.getTime(),
     };
     const token = jwt.sign(jwtPayload, secret);
-    return token;
+    return { token };
   }
 
   async createUser(user: CreateUserDto): Promise<User> {
@@ -89,5 +98,18 @@ export class UserService {
     const savedUser = await this.userRepository.save(newUser);
     delete savedUser.password;
     return savedUser;
+  }
+
+  async deleteUser(id: number) {
+    const user = await this.userRepository.findOneBy({ id });
+    if (!user) {
+      throw new NotFoundException(ERROR_MESSAGES.USER_NOT_FOUND);
+    }
+    try {
+      await this.userRepository.delete(id);
+      return { message: RESPONSE_MESSAGES.SUCCESSFULLY_DELETED };
+    } catch (error) {
+      throw new Error(ERROR_MESSAGES.NO_DELETE_ERROR);
+    }
   }
 }

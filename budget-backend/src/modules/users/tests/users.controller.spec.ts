@@ -84,10 +84,10 @@ describe('UserController', () => {
       email: 'fake@mail.com',
       password: '123456',
     };
-    const loginToken = await userController.login(
-      loginDto.email,
-      loginDto.password,
-    );
+    const loginToken = await userController.login({
+      email: loginDto.email,
+      password: loginDto.password,
+    });
     expect(loginToken).toEqual('someToken');
   });
 
