@@ -25,7 +25,6 @@ export class MovementsController {
 
   @Post()
   async createMovement(@Body() movement: CreateMovementDto) {
-		console.log("movement juju", movement);
     const sanitizedAmount = this.sanitizer.sanitizeNumber(movement.amount);
     const sanitizedMovement = { ...movement, amount: sanitizedAmount };
     return this.movementService.createMovement(sanitizedMovement);

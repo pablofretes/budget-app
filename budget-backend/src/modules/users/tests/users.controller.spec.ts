@@ -9,9 +9,19 @@ import { LoginDto } from '../dto/login-user.dto';
 import { UserController } from '../users.controller';
 import { UserService } from '../users.service';
 import { UserValidations } from '../users.validations';
+import { AuthenticationService } from '../../../utils/authentication/authentication';
 
 describe('UserController', () => {
   let userController: UserController;
+
+  const mockAuthenticationService = {
+    register: jest.fn((dto: CreateUserDto) => {
+      return testCreatedUserByDto(dto);
+    }),
+    login: jest.fn(() => {
+      return 'someToken';
+    }),
+  };
 
   const mockUserService = {
     createUser: jest.fn((dto: CreateUserDto) => {
@@ -39,10 +49,12 @@ describe('UserController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
-      providers: [UserService, UserValidations],
+      providers: [UserService, UserValidations, AuthenticationService],
     })
       .overrideProvider(UserService)
       .useValue(mockUserService)
+      .overrideProvider(AuthenticationService)
+      .useValue(mockAuthenticationService)
       .overrideProvider(UserValidations)
       .useValue(mockUserValidator)
       .compile();
@@ -76,7 +88,6 @@ describe('UserController', () => {
       },
       movements: [],
     });
-    expect(mockUserService.createUser).toHaveBeenCalledWith(userDto);
   });
 
   it('should return a token', async () => {

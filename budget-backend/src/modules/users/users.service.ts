@@ -9,17 +9,13 @@ import { Repository } from 'typeorm';
 import { User } from './users.entity';
 import {
   PROVIDERS,
-  HASH_SALT,
   ERROR_MESSAGES,
   RELATIONS,
-  CONFIG_CONSTANTS,
   RESPONSE_MESSAGES,
 } from '../../common/constants';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ConfigService } from '@nestjs/config';
 import { BalanceService } from '../balance/balance.service';
-import * as bcrypt from 'bcrypt';
-import * as jwt from 'jsonwebtoken';
 @Injectable()
 export class UserService {
   constructor(
@@ -32,7 +28,7 @@ export class UserService {
 
   async findAll(): Promise<User[]> {
     try {
-      return this.userRepository.find({ relations: [RELATIONS.BALANCE] });
+      return await this.userRepository.find({ relations: [RELATIONS.BALANCE] });
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
@@ -76,28 +72,9 @@ export class UserService {
     return this.userRepository.findOneBy({ email });
   }
 
-  async login(user: User): Promise<{ token: string }> {
-    const secret = this.config.get<string>(CONFIG_CONSTANTS.JWT_SECRET);
-    const jwtPayload = {
-      userId: user.id,
-      createdAt: user.createdAt.getTime(),
-    };
-    const token = jwt.sign(jwtPayload, secret);
-    return { token };
-  }
-
   async createUser(user: CreateUserDto): Promise<User> {
-    user.password = bcrypt.hashSync(user.password, HASH_SALT);
-    const balanceData = {
-      initialAmount: user.initialAmount,
-      total: user.total,
-    };
-    const newBalance = await this.balanceService.createBalance(balanceData);
-    const userToSave = { ...user, balance: newBalance, movements: [] };
-    const newUser = this.userRepository.create(userToSave);
-    const savedUser = await this.userRepository.save(newUser);
-    delete savedUser.password;
-    return savedUser;
+    const newUser = this.userRepository.create(user);
+    return this.userRepository.save(newUser);
   }
 
   async deleteUser(id: number) {
