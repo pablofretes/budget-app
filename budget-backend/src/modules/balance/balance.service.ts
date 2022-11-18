@@ -1,4 +1,4 @@
-import { Injectable, Inject, BadRequestException } from '@nestjs/common';
+import { Injectable, Inject, BadRequestException, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Balance } from './balance.entity';
 import { ERROR_MESSAGES, PROVIDERS, RELATIONS } from '../../common/constants';
@@ -22,13 +22,16 @@ export class BalanceService {
       relations: [RELATIONS.MOVEMENTS],
     });
     if (!balance) {
-      throw new BadRequestException(ERROR_MESSAGES.INVALID_ID);
+      throw new NotFoundException(ERROR_MESSAGES.BALANCE_NOT_FOUND);
     }
     return balance;
   }
 
   async updateBalance(id: number, amount: number): Promise<Balance> {
     const balance = await this.findById(id);
+		if (!balance) {
+      throw new NotFoundException(ERROR_MESSAGES.BALANCE_NOT_FOUND);
+    }
     balance.total = balance.total + amount;
     balance.initialAmount = balance.initialAmount + amount;
     return this.balanceRepository.save(balance);
