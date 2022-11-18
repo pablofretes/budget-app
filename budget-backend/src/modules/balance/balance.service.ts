@@ -1,4 +1,4 @@
-import { Injectable, Inject, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Balance } from './balance.entity';
 import { ERROR_MESSAGES, PROVIDERS, RELATIONS } from '../../common/constants';
@@ -29,7 +29,7 @@ export class BalanceService {
 
   async updateBalance(id: number, amount: number): Promise<Balance> {
     const balance = await this.findById(id);
-		if (!balance) {
+    if (!balance) {
       throw new NotFoundException(ERROR_MESSAGES.BALANCE_NOT_FOUND);
     }
     balance.total = balance.total + amount;

@@ -105,6 +105,7 @@ describe('UserService', () => {
       username: userDto.username,
       email: userDto.email,
       createdAt: expect.any(Date),
+      password: expect.any(String),
       balance: {
         id: expect.any(Number),
         total: 0,

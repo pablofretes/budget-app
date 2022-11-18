@@ -8,6 +8,7 @@ import {
   ParseIntPipe,
   Post,
 } from '@nestjs/common';
+import { AuthenticationService } from '../../utils/authentication/authentication';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login-user.dto';
 import { UserService } from './users.service';
@@ -18,12 +19,14 @@ export class UserController {
   constructor(
     @Inject(UserService) private readonly userService: UserService,
     @Inject(UserValidations) private readonly userValidations: UserValidations,
+    @Inject(AuthenticationService)
+    private readonly authenticationService: AuthenticationService,
   ) {}
 
   @Post('/login')
   async login(@Body() loginDto: LoginDto) {
     const user = await this.userValidations.loginUserParser(loginDto);
-    return this.userService.login(user);
+    return this.authenticationService.login(user);
   }
 
   @Get(':id')
@@ -39,7 +42,7 @@ export class UserController {
   @Post()
   async createUser(@Body() user: CreateUserDto) {
     await this.userValidations.createUserValidations(user);
-    return this.userService.createUser(user);
+    return this.authenticationService.register(user);
   }
 
   @Delete(':id')
